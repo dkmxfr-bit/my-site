@@ -4,11 +4,24 @@
 <meta charset="UTF-8">
 <title>birthday</title>
 
-<!-- Undertale шрифт -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
-  body {
+
+/* ✨ появление */
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background: url("./bg.jpg") center/cover no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-family: "Press Start 2P", monospace;
+
   animation: fadeIn 1s ease;
 }
 
@@ -22,56 +35,44 @@
     transform: scale(1);
   }
 }
-body {
-  margin: 0;
-  min-height: 100vh;
 
-  background: url("./bg.jpg") center/cover no-repeat;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-family: "Press Start 2P", monospace;
-}
-
+/* контейнер */
 .container {
   text-align: center;
   color: white;
 }
 
-/* Undertale стиль текста */
+/* большой текст */
 h1 {
-  font-size: 18px;
-  margin-bottom: 20px;
-
-  color: white;
-  text-shadow: 2px 2px 0 black;
+  font-size: 42px;
+  margin-bottom: 30px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
+/* кнопка */
 button {
-  padding: 12px 25px;
+  padding: 18px 40px;
 
-  border-radius: 25px;
+  border-radius: 30px;
   border: 1px solid rgba(255,255,255,0.6);
 
   background: rgba(255,255,255,0.15);
-
   color: white;
 
   cursor: pointer;
   transition: 0.3s;
 
-  font-size: 12px;
-
+  font-size: 18px;
   font-family: "Press Start 2P", monospace;
+
   text-shadow: 1px 1px 0 black;
 }
 
 button:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
   background: rgba(255,255,255,0.25);
 }
+
 </style>
 </head>
 
