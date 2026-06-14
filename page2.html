@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html><html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>letter</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
-<style>
+<title>letter</title><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"><style>
 
 /* 🌙 пиксельный шрифт */
 * {
   font-family: "Press Start 2P", monospace;
 }
 
-/* 💫 плавное появление */
 body {
   position: relative;
   margin: 0;
@@ -29,13 +23,19 @@ body {
   animation: fadeIn 1s ease;
 }
 
-/* fade in */
+/* плавное появление */
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(1.02); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-/* 🌙 дыхание фона */
+/* дыхание фона */
 body::before {
   content: "";
   position: fixed;
@@ -46,34 +46,29 @@ body::before {
 }
 
 @keyframes bgBreath {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(0.85); }
+  0%,100% { filter: brightness(1); }
+  50% { filter: brightness(0.9); }
 }
 
-/* ❤️ сердцебиение (3 удара) */
+/* сердцебиение */
 @keyframes heartbeat {
+  0% { transform: scale(1); }
 
-  0% { transform: translate(-125px, -120px) scale(1); }
+  10% { transform: scale(1.08); }
+  18% { transform: scale(1); }
 
-  /* 1 */
-  10% { transform: translate(-125px, -120px) scale(1.08); }
-  18% { transform: translate(-125px, -120px) scale(1); }
+  26% { transform: scale(1.12); }
+  34% { transform: scale(1); }
 
-  /* 2 */
-  26% { transform: translate(-125px, -120px) scale(1.12); }
-  34% { transform: translate(-125px, -120px) scale(1); }
+  55% { transform: scale(1); }
 
-  /* пауза */
-  55% { transform: translate(-125px, -120px) scale(1); }
+  68% { transform: scale(1.15); }
+  80% { transform: scale(1); }
 
-  /* 3 (медленный) */
-  68% { transform: translate(-125px, -120px) scale(1.15); }
-  80% { transform: translate(-125px, -120px) scale(1); }
-
-  100% { transform: translate(-125px, -120px) scale(1); }
+  100% { transform: scale(1); }
 }
 
-/* ✨ glow */
+/* свечение */
 @keyframes glow {
   0% { box-shadow: 0 0 0 rgba(255,255,255,0); }
   50% { box-shadow: 0 0 25px rgba(255,255,255,0.35); }
@@ -82,27 +77,28 @@ body::before {
 
 /* 🎵 кнопка музыки */
 .music-btn {
-.music-btn {
-  width: 140px;
-  height: 140px;
+  width: 170px;
+  height: 170px;
 
   background: url("./music.jpg") center/cover no-repeat;
 
-  border-radius: 18px;
+  border-radius: 20px;
   border: none;
 
   cursor: pointer;
 
   position: absolute;
-  top: 60px;
-  left: 60px;
+  top: 25px;
+  left: 25px;
+
+  overflow: hidden;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-                              }
+}
 
-/* стекло */
 .music-btn::before {
   content: "";
   position: absolute;
@@ -110,33 +106,35 @@ body::before {
   background: rgba(255,255,255,0.08);
 }
 
-/* иконка */
+.music-btn.playing {
+  animation: heartbeat 2.4s infinite ease-in-out,
+             glow 2.4s infinite;
+}
+
 .icon {
   position: relative;
   z-index: 2;
 }
 
-/* текст */
 .text {
-  font-size: 9px;
-  color: white;
-  margin-top: 4px;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
   position: relative;
   z-index: 2;
-}
 
-/* когда играет */
-.music-btn.playing {
-  animation: heartbeat 2.4s infinite ease-in-out, glow 2.4s infinite;
+  color: white;
+  font-size: 10px;
+
+  margin-top: 8px;
+
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
 }
 
 /* 🔘 кнопка назад */
 .back-btn {
-  margin-top: 0;
+  position: absolute;
+  bottom: 40px;
 
-  padding: 18px 40px;
-  font-size: 18px;
+  padding: 24px 55px;
+  font-size: 20px;
 
   border-radius: 30px;
   border: 1px solid rgba(0,0,0,0.2);
@@ -146,45 +144,38 @@ body::before {
   cursor: pointer;
   transition: 0.3s;
 
-  position: absolute;
-  bottom: 60px;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
+
 .back-btn:hover {
   transform: scale(1.05);
 }
 
-</style>
-</head>
-
-<body>
-
-<audio id="music" loop>
+</style></head><body><audio id="music" loop>
   <source src="music.mp3" type="audio/mpeg">
-</audio>
+</audio><button class="music-btn" onclick="toggleMusic()">  <div class="icon"><svg id="playIcon"
+     xmlns="http://www.w3.org/2000/svg"
+     width="50"
+     height="50"
+     fill="white"
+     viewBox="0 0 24 24">
+  <path d="M8 5v14l11-7z"/>
+</svg>
 
-<button class="music-btn" onclick="toggleMusic()">
+<svg id="pauseIcon"
+     xmlns="http://www.w3.org/2000/svg"
+     width="50"
+     height="50"
+     fill="white"
+     viewBox="0 0 24 24"
+     style="display:none;">
+  <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
+</svg>
 
-  <div class="icon">
-
-    <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" viewBox="0 0 24 24">
-      <path d="M8 5v14l11-7z"/>
-    </svg>
-
-    <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" viewBox="0 0 24 24" style="display:none;">
-      <path d="M6 5h4v14H6zm8 0h4v14h-4z"/>
-    </svg>
-
-  </div>
-
-  <div class="text">тапни :PP</div>
-
-</button>
-
-<button class="back-btn" onclick="location.href='index.html'">
+  </div>  <div class="text">тапни :PP</div></button><button class="back-btn" onclick="location.href='index.html'">
 назад
-</button>
-
-<script>
+</button><script>
 const music = document.getElementById("music");
 const playIcon = document.getElementById("playIcon");
 const pauseIcon = document.getElementById("pauseIcon");
@@ -203,7 +194,5 @@ function toggleMusic() {
     btn.classList.remove("playing");
   }
 }
-</script>
-
-</body>
+</script></body>
 </html>
